@@ -6,6 +6,10 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 import pickle
 from sklearn.externals import joblib
+import pydotplus
+from sklearn import tree
+import collections
+
 import time
 start = time.time()
 
@@ -70,12 +74,42 @@ clf.fit(x_train,y_train)
 
 joblib.dump(clf,'testPickle.pkl')
 '''
-clf = joblib.load('testPickle.pkl')
+clf = joblib.load('../pickles/testPickle.pkl')
 
 
 results = clf.predict(x_test)
 print("\n Accuracy: ")
 print(str(accuracy_score(y_test,results)))
+
+
+#tree.export_graphviz(clf,out_file='tree.pdf') 
+
+features = vectorizor.get_feature_names()
+#print(features)
+
+
+dot_data = tree.export_graphviz(clf,
+								feature_names=features,
+                                out_file=None,
+                                filled=True,
+                                rounded=True)
+								
+graph = pydotplus.graph_from_dot_data(dot_data)
+
+
+colors = ('turquoise', 'orange')
+edges = collections.defaultdict(list)
+
+for edge in graph.get_edge_list():
+    edges[edge.get_source()].append(int(edge.get_destination()))
+
+for edge in edges:
+    edges[edge].sort()    
+    for i in range(2):
+        dest = graph.get_node(str(edges[edge][i]))[0]
+        dest.set_fillcolor(colors[i])
+
+graph.write_pdf('tree2.pdf')
 
 end = time.time()
 print(end - start)

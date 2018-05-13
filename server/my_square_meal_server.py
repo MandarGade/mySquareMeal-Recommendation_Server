@@ -19,6 +19,7 @@ def getRecommendation():
     #lat = request.args.get("latitude")
     #long = request.args.get("longitude")
     request_data = request.get_json()
+    #email=request_data.get('email')
     lat=request_data.get('latitude')
     long=request_data.get('longitude')
     city = city_name.get_city_name(lat,long)

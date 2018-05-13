@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import accuracy_score
+from sklearn import tree
 
 
 class LearningModule:
@@ -77,6 +78,8 @@ class LearningModule:
         predResults = clf.predict(x_test)
         print(predResults)
         print("Accuracy : "+str(accuracy_score(y_test, predResults)))
+		
+		
         '''
         xTest_vct = vectorizer.transform(xTest)
         # print(xTest_vct)
