@@ -10,6 +10,26 @@ client = MongoClient(MONGODB_URI, connectTimeoutMS=30000)
 db = client.get_database("eat_street_bay_area")
 class operations:
 
+    def check_city_list(city):
+
+        city_list = ['Concord', 'Cupertino', 'San Francisco', 'San Ramon', 'Union City', 'Palo Alto', 'Newark', 'San Carlos',
+         'San Bruno', 'San Mateo', 'Antioch', 'Oakland', 'El Cerrito', 'Menlo Park', 'Sunnyvale', 'Sausalito',
+         'Walnut Creek', 'San Rafael', 'Campbell', 'South San Francisco', 'Mountain View', 'Fremont', 'Milpitas',
+         'San Pablo', 'San Jose', 'Alameda', 'Sacramento', 'Rancho Cordova', 'Santa Clara', 'Pleasanton', 'Dublin',
+         'Hayward', 'Lodi', 'San Leandro', 'Livermore', 'Folsom', 'Roseville', 'Citrus Heights', 'Santa Rosa',
+         'Richmond', 'Daly City', 'Belmont', 'Rocklin', 'Novato', 'Berkeley', 'Albany', 'Rohnert Park',
+         'Point Richmond', 'Petaluma', 'Hercules', 'Redwood City', 'Sunny Vale', 'Foster City', 'San Lorenzo',
+         'Burlingame', 'Danville', 'Vallejo', 'Sonora', 'Elk Grove', 'Brisbane', 'Millbrae', 'Pacific Grove', 'Davis',
+         'Oakland,', 'Tiburon', 'Lockeford', 'Emeryville', 'Santa Cruz', 'West Sacramento', 'Pittsburg', 'Gilroy',
+         'Morgan Hill', 'Pinole', 'North Beach', 'Woodland', 'Yuba City', 'Vacaville', 'Modesto', 'Dixon', 'Marysville',
+         'Tracy', 'Placerville', 'Brentwood', 'Galt', 'Windsor', 'Napa', 'Chico', 'Lincoln', 'Seaside', 'Pleasant Hill',
+         'Suisun City', 'Mill Valley', 'Fair Oaks', 'Corte Madera', 'Los Gatos', 'Lafayette', 'Larkspur', 'Orinda',
+         'El Sobrante', 'Castro Valley']
+
+        if city in city_list:
+            return True
+        else:
+            return False
 
     def get_nearby(lat, long, city):
 

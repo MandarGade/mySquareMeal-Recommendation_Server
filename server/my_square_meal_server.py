@@ -24,12 +24,17 @@ def getRecommendation():
     long=request_data.get('longitude')
     city = city_name.get_city_name(lat,long)
     print(lat,long,city)
-    nearby_restaurants = operations.get_nearby(lat=lat,long=long,city=city)
-    menu_api, menu_list = operations.get_menu_items(nearby_restaurants)
-    result_api_list = recommendationPickle.get_recommendation_from_pickle(menu_api, menu_list)
-    MENU_API_LIST = result_api_list
-    result = operations.get_result_data(result_api_list,city)
-    return json.dumps(result)
+    check_city = operations.check_city_list(city=city)
+    print(check_city)
+    if check_city:
+        nearby_restaurants = operations.get_nearby(lat=lat,long=long,city=city)
+        menu_api, menu_list = operations.get_menu_items(nearby_restaurants)
+        result_api_list = recommendationPickle.get_recommendation_from_pickle(menu_api, menu_list)
+        MENU_API_LIST = result_api_list
+        result = operations.get_result_data(result_api_list,city)
+        return json.dumps(result)
+    else:
+        return "city not found in database"
 
 
 @app.route("/nutrition-recommendation",methods=['GET'])

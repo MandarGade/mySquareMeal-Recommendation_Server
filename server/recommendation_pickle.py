@@ -15,10 +15,10 @@ class recommendationPickle:
         testDataFrame = pd.DataFrame(testData, columns=['ingredients'])
         testDataFrame = testDataFrame.replace('-', ' ', regex=True)
         x_test = testDataFrame.iloc[:, 0].values
-        vect = joblib.load('../pickles/vect_Pickle.pkl')
+        vect = joblib.load('../pickles/vector_pickle.pkl')
         x_test_vectorized = vect.transform(x_test)
 
-        clf = joblib.load('../pickles/testPickle.pkl')
+        clf = joblib.load('../pickles/prediction_pickle.pkl')
         result = clf.predict(x_test_vectorized)
 
         index_list = [index for index, value in enumerate(result) if value == 1]

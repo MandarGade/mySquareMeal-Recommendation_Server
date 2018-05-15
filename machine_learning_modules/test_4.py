@@ -33,7 +33,7 @@ for food_name in NAME_DESCRIPTION_LIST:
 	value = None
 	if any(word in food_name for word in FOOD_TO_AVOID):
 		value=0
-		
+
 	else:
 		value=1
 
@@ -79,6 +79,7 @@ from sklearn.metrics import accuracy_score
 import pickle
 from sklearn import tree
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.externals import joblib
 
 
 
@@ -95,7 +96,7 @@ y_classification = main_dataframe.iloc[:,1].values
 vectorizor = TfidfVectorizer()
 x_ingredients_vectorized = vectorizor.fit_transform(x_ingredients)
 
-
+joblib.dump(vectorizor,'../pickles/vector_pickle.pkl')
 #print(x_ingredients)
 #print(y_classification)
 
@@ -105,7 +106,7 @@ clf.fit(x_train,y_train)
 #results = clf.predict(x_test)
 #print("\n Accuracy: ")
 #print(str(accuracy_score(y_test,results)))
-
+joblib.dump(clf,'../pickles/prediction_pickle.pkl')
 
 test_ingradients_vectorized=vectorizor.transform(['jasmin rice','white rice', 'pasta', 'white bread', 'bagels', 'white flour','white flour tortillas','crackers ', 'pretzels', 'cookies', 'cakes', 'muffins', 'beef', 'pork', 'lamb','fried', 'breaded', 'bacon', 'hot dogs', 'deli meats', 'deep fried', 'whole milk', 'full fat','sugar syrup', ' preserves', 'pickles', 'sauerkraut', 'butter', 'lard', 'palm oil', 'cream', 'fries','doughnuts','croissants', 'agave nectar', 'soda', 'lemon chicken', 'wontons','pork loin', 'roasted pigs', 'salty duck eggs', 'salty fish', 'red bean', 'prawn', 'lobster', 'honey''potsticker','potato', 'cream', 'butter', 'ghee', 'basmati rice', 'all purpose flour'])
 res = clf.predict(test_ingradients_vectorized)
