@@ -8,6 +8,12 @@ start = time.time()
 MONGODB_URI = "mongodb://mySquareMeal:mysquaremeal@ds239009.mlab.com:39009/eat_street_bay_area"
 client = MongoClient(MONGODB_URI, connectTimeoutMS=30000)
 db = client.get_database("eat_street_bay_area")
+
+
+MONGODB_URI_USER_PROFILE = "mongodb://mySquareMeal:mySquareMeal@ds157653.mlab.com:57653/mysquaremeal_user_profile_database"
+client_user_profile = MongoClient(MONGODB_URI_USER_PROFILE, connectTimeoutMS=30000)
+db_profile = client_user_profile.get_database("mysquaremeal_user_profile_database")
+
 class operations:
 
     def check_city_list(city):
@@ -96,6 +102,25 @@ class operations:
 
         return result
 
+    def filter_for_user_allergies(email, menu_api, menu_list):
+        list_of_apis = []
+        list_of_menus = []
+        print(email)
+
+        profile_data = db_profile['user_profile_collection'].find({'email':email})
+        food_to_avoid = None
+        for doc in profile_data:
+            food_to_avoid = doc["food_to_avoid"]
+
+            for each in menu_list:
+                if any(item.lower() in each.lower() for item in food_to_avoid):
+                    continue
+                else:
+
+                    list_of_menus.append(each.lower())
+                    list_of_apis.append(menu_api[menu_list.index(each)])
+
+        return list_of_apis,list_of_menus
 
 '''
 if __name__=='__main__':
