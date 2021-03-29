@@ -40,7 +40,7 @@ prompt-toolkit==1.0.15
 protobuf==3.5.0
 pydot==1.2.3
 pydotplus==2.0.2
-Pygments==2.2.0
+Pygments==2.7.4
 pymongo==3.6.0
 pyparsing==2.2.0
 pytesseract==0.2.0
